@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+    {% for listing in listings%}
+            
+    <div class="card" style="width: 100%;" >
+        <h5 class="card-header">{{listing.name}}</h5>
+        <div class="row align-items-start">
+            <div class = "col-1">
+                <img class="card-img-top " src="{{listing.picture.url}}" alt="Card image cap" style = "height:150px; width:auto; padding:20px;">
+              
+            </div>
+        <div class = "col-sm-9">
+            <div class="card-body">
+                <h5 class="card-title">Current Bid: <strong> {{listing.current_bid}}</strong></h5>
+                <p class="card-text">{{listing.description}}</p>
+               
+                <form action = "{% url 'product_page' %}" method = "post">
+                    {% csrf_token %}
+                    <input type = "hidden" value = "{{listing.id}}" name = "listing">
+                    <input class = "btn btn-primary" type = "submit" value = "Bid Now" style = "margin-bottom:5px;"> 
+                </form>
+                <form action = "{% url 'remove_watchlist' %}" method = "post">
+                    {% csrf_token %}
+                    <input type = "hidden" value = "{{listing.id}}" name = "listing">
+                    <input class = "btn btn-secondary"  type = "submit" value = "Remove From Watchlist"> 
+                </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    {% endfor %}
+    
+{% endblock %}

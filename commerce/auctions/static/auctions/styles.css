@@ -1,0 +1,8 @@
+body {
+    background-color: #FFD647;
+}
+.form-control:focus {
+    border-color: blue;
+    
+}
+.card {display:inline-block;}

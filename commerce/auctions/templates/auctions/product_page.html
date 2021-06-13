@@ -1,0 +1,67 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if message != ""%}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{message}}
+    </div>
+    {% endif %}
+
+   
+
+<div class="card" style="width: 100%;" >
+    <h5 class="card-header">{{listing.name}}</h5>
+    <div class="row align-items-start">
+        <div class = "col-4">
+            <img class="card-img-top " src="{{listing.picture.url}}" alt="Card image cap" style = "height:600px; width:auto; padding:20px;">
+        </div>
+    <div class = "col-sm-9">
+        <div class="card-body">
+            <h5 class="card-title">Description:</h5>
+            <p class="card-text">{{listing.description}}</p>
+            <p class="card-text">Current Bid: <strong> {{listing.current_bid}}</strong> {% if highest_bidder %} (You are the highest bidder) {% endif %}</p>
+            <form action = "{% url 'bid' %}" method = "post">
+                {% csrf_token %}
+                <div class = "form-group row " style = "padding-left:15px;">
+                <input type = "hidden" value = "{{listing.id}}" name = "listing">
+                <div class="col-xs-2" style = "padding-right: 10px">
+                    <input class="form-control" id="ex1" type = "text" name = "bid"> 
+                </div>
+                <input class = "btn btn-primary" type = "submit" value = "Submit Bid"> 
+            </div>
+            </form>
+            <form action = "{% url 'add_watchlist' %}" method = "post">
+                {% csrf_token %}
+                <input type = "hidden" value = "{{listing.id}}" name = "listing">
+                <input type = "hidden" value = "False" name = "index">
+                <input class = "btn btn-secondary" type = "submit" value = "Add to Watchlist">
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+<br>
+<br> 
+<h2>Comments: </h2>
+<form action = "{% url 'comment' %}" method = "post">
+{% csrf_token %}
+<div class = "form-group">
+    <label for = "content">Post a comment: </label>
+    <input type = "hidden" value = "{{listing.id}}" name = "listing">
+    <input class = "form-control" type = "text" name = "content" id = "content" placeholder = "Say something...">
+        
+
+    <!--<input  class = "form-control input-lg" type = "text" name = "description" id = "description" placeholder = "Description">-->
+</div>
+</form>
+{%for comment in comments %}
+    <p><strong>{{comment.commenter.first_name}} </strong>on {{comment.time}}: </p>
+    <p>{{comment.content}}</p>
+    <br> 
+{% endfor %}
+<br>
+<br>
+    
+    
+{% endblock %}
