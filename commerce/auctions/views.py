@@ -10,7 +10,8 @@ from datetime import datetime
 
 def index(request):
     return render(request, "auctions/index.html", {
-        "listings": Listing.objects.all()
+        "listings": Listing.objects.all(),
+        "message": ""
     })
 
 
@@ -226,7 +227,8 @@ def search(request):
             filtered_listings.append(listing)
             
     return render(request, "auctions/index.html", {
-        "listings": filtered_listings
+        "listings": filtered_listings,
+        "message": ""
     })
 
 def comment(request):

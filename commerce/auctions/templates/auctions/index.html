@@ -1,6 +1,12 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    {% if message != ""%}
+    <div class="alert alert-warning alert-dismissible" role="alert" id = "alert">
+        <button id = "close" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{message}}
+    </div>
+    {% endif %}
     <h2>Active Listings</h2>
     <br>
     {% for listing in listings%}
@@ -8,9 +14,8 @@
     <div class="card" style="width: 100%;" >
         <h5 class="card-header">{{listing.name}}</h5>
         <div class="row align-items-start">
-            <div class = "col-1" style = "">
-                <img class="card-img-top " src="{{listing.picture.url}}" alt="Card image cap" style = "height:auto; width:100%; margin:20px; min-width: 50px; max-width: 100px; ">
-              
+            <div class = "col-1">
+                <img class="card-img-top " src="{{listing.picture.url}}" alt="Card image cap" style = "height:auto; width:100%; margin:20px; min-width: 50px; max-width: 100px;">
             </div>
         <div class = "col-sm-9">
             <div class="card-body">

@@ -10,7 +10,15 @@
     <style type="text/css">
         body { background: white !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
         .card {display:inline-block;}
-     </style>
+     </style> 
+     <script>
+             document.addEventListener('DOMContentLoaded', function() {
+                 document.querySelector('#close').onclick = function(){
+                     document.querySelector('#alert').style.display = "none";
+
+                 }
+            });
+     </script>
     <body class = ".bg-dark">
         <nav class="navbar sticky-top navbar-expand-lg navbar bg-light">
             <div class="d-flex flex-grow-1">
